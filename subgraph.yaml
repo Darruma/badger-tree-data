@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,11 +6,12 @@ dataSources:
     name: BadgerTreeV2
     network: mainnet
     source:
-      address: "0xbe82A3259ce427B8bCb54b938b486dC2aF509Cc3"
+      address: "0x660802Fc641b154aBA66a62137e71f331B6d787A"
       abi: BadgerTreeV2
+      startBlock: 11380690
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - Claimed
@@ -25,23 +26,13 @@ dataSources:
       abis:
         - name: BadgerTreeV2
           file: ./abis/BadgerTreeV2.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Claimed(indexed address,indexed address,uint256,indexed uint256,uint256,uint256)
           handler: handleClaimed
-        - event: InsufficientFundsForRoot(indexed bytes32)
-          handler: handleInsufficientFundsForRoot
-        - event: Paused(address)
-          handler: handlePaused
-        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-          handler: handleRoleAdminChanged
-        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleGranted
-        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleRevoked
-        - event: RootProposed(indexed uint256,indexed bytes32,indexed bytes32,uint256,uint256,uint256,uint256)
-          handler: handleRootProposed
         - event: RootUpdated(indexed uint256,indexed bytes32,indexed bytes32,uint256,uint256,uint256,uint256)
           handler: handleRootUpdated
-        - event: Unpaused(address)
-          handler: handleUnpaused
+        - event: RootProposed(indexed uint256,indexed bytes32,indexed bytes32,uint256,uint256,uint256,uint256)
+          handler: handleRootProposed
       file: ./src/mapping.ts

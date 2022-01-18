@@ -1,6 +1,47 @@
-type ExampleEntity @entity {
+type Claim @entity {
   id: ID!
-  count: BigInt!
-  user: Bytes! # address
-  token: Bytes! # address
+  user: User!
+  token: Token!
+  amount: BigInt!
+  cycle: Cycle!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}
+
+type Token @entity {
+  id: ID!
+  decimals: BigInt!
+  name: String!
+  symbol: String!
+}
+
+type TokenBalance @entity {
+  id: ID!
+  token: Token!
+  amount: BigInt!
+  user: User!
+}
+
+type User @entity {
+  id: ID!
+  balances: [TokenBalance!]! @derivedFrom(field: "user")
+  claims: [Claim!]! @derivedFrom(field: "user")
+}
+
+interface TreeAction @entity {
+  id: ID!
+  cycle: Cycle!
+  root: String!
+  contentHash: String!
+  startBlock: BigInt!
+  endBlock: BigInt!
+}
+
+type Cycle @entity {
+  id: ID!
+  claims: [Claim!]! @derivedFrom(field: "cycle")
+  root: String!
+  contentHash: String!
+  startBlock: BigInt!
+  endBlock: BigInt!
 }
