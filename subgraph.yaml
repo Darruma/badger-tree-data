@@ -36,3 +36,25 @@ dataSources:
         - event: RootProposed(indexed uint256,indexed bytes32,indexed bytes32,uint256,uint256,uint256,uint256)
           handler: handleRootProposed
       file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: RewardsLogger
+    network: mainnet
+    source:
+      address: "0x0A4F4e92C3334821EbB523324D09E321a6B0d8ec"
+      abi: RewardsLogger
+      startBlock: 12325490
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - UnlockSchedule
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: RewardsLogger
+          file: ./abis/RewardsLogger.json
+      eventHandlers:
+        - event: UnlockScheduleSet(indexed address,address,uint256,uint256,uint256,uint256,indexed uint256,indexed uint256)
+          handler: handleUnlockScheduleSet
+      file: ./src/mapping.ts

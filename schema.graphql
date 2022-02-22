@@ -45,3 +45,14 @@ type Cycle @entity {
   startBlock: BigInt!
   endBlock: BigInt!
 }
+type UnlockSchedule @entity {
+  id: ID!
+  vault: String!
+  token: Token!
+  amount: BigInt!
+  start: BigInt!
+  end: BigInt!
+  duration: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}
